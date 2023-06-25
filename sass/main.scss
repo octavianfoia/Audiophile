@@ -1,0 +1,10 @@
+@use './abstracts/variables';
+@use './base/resets';
+@use './base/base';
+
+
+@use './layouts/header';
+
+@use './screens/home.scss';
+
+@use './layouts/footer';
