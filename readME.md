@@ -6,6 +6,16 @@ I have developed a dynamic ecommerce website for audio products using HTML, CSS,
 
 
 
-To see the result, you can download the folder and use VS Code, and to emulate the local database, use json-server. Install it with this command: "npm install -g json-server" and run it with: "json-server --watch data_base/db.json", with terminal at folder level. 
-Also use live-server to emulate the host.
+To see the result, you can download the folder and use VS Code, and to emulate the local database, use json-server. 
+
+**Install** it with this command: 
+
+"**npm install -g json-server**" 
+
+and run it with: 
+
+"**json-server --watch data_base/db.json**", 
+
+with terminal at folder level. 
+Also use **live-server** to emulate the host.
 
