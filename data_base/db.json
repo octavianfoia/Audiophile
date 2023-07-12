@@ -209,22 +209,7 @@
       "new": true
     }
   ],
-  "shopping_cart": [
-    {
-      "id": 4,
-      "name": "ZX9",
-      "price": 4500,
-      "image": "img/items/ZX9/ZX9.png",
-      "qty": "1"
-    },
-    {
-      "id": 6,
-      "name": "YX1 WIRELESS",
-      "price": 599,
-      "image": "img/items/YX1 WIRELESS/YX1 WIRELESS.png",
-      "qty": "2"
-    }
-  ],
+  "shopping_cart": [],
   "users": [
     {
       "user": "user",
