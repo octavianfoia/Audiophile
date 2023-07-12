@@ -63,7 +63,7 @@ function getItems(category, item_) {
 /*
 
 Read the current URL of the browser and retrieve the parameters ?category or ?item; example: http://127.0.0.1:5501/?category=HEADPHONES &/or http://127.0.0.1:5501/?item=XX99%20Mark%20II" 
-
+Salut
 */
 
 const urlParams = new URLSearchParams(window.location.search);
