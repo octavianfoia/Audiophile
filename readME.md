@@ -1,7 +1,7 @@
 **Audiophile Project**
 
 
-I have developed a dynamic and responsive ecommerce website for audio products using HTML, CSS, and JavaScript. It includes product display, category-based filtering, and a shopping cart complete with essential features. Users can explore an enticing product catalog, seamlessly add items to their cart, and witness real-time price updates based on quantity.
+I have developed a dynamic and responsive ecommerce website for audio products using HTML, CSS, and JavaScript (with NPM & REST API). It includes product display, category-based filtering, and a shopping cart complete with essential features. Users can explore an enticing product catalog, seamlessly add items to their cart, and witness real-time price updates based on quantity.
 
 
 
