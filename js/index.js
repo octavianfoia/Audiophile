@@ -1,8 +1,7 @@
 /* 
-The original mobile nav is initially hidden to the right side of the 
-screen with a left margin of -40vw. So the idea behind this code is that 
-when the hamburger button is pressed, it reads the current margin-left of the nav/ul. 
-If it is 0, then -40vw is assigned to it; if it is -40vw, then 0 is assigned to it 
+The original mobile nav is initially hidden to the left side of the 
+screen with a left margin of -40vw.  
+
 */
 
 const btn_hamb = document.getElementById('btn_hamb');
@@ -12,7 +11,7 @@ btn_hamb.addEventListener('click', function (event) {
   const ul = document.querySelector('header nav ul');
 
   if (ul.style.marginLeft == '0vw') {
-    ul.style.marginLeft = '-50vw';
+    ul.style.marginLeft = '-40vw';
   } else {
     ul.style.marginLeft = '0vw';
   }
@@ -78,6 +77,31 @@ if (category || item_) {
 
 /* 
 `renderCategory` displays the categories page. Is executed when the items are retrieved and it filters them based on the category value. Then, it dynamically adds the filtered items using the DOM (using `createElement` and `appendChild` to create HTML elements). 
+
+renderCategory(data), takes a data object as input
+
+
+For each item in the filtered items array, the function creates and configures HTML elements for display. These elements include:
+
+An <article> element to represent each item.
+A <div> with class "category_img" that contains an <img> element displaying the item's image.
+A <div> with class "category_content" that contains various details of the item, like the name, category, details, etc.
+A <span> element with class "overline" for displaying the "NEW PRODUCT" text if the item is new (based on the item.new property).
+Two <h2> elements for displaying the item's name and category.
+A <p> element for displaying the item's details.
+An <a> element with a link to the item's page using the item.name property.
+A <button> element for displaying "SEE PRODUCT" as the button text.
+The newly created HTML elements are appended to the container with the ID "#render_js_content", effectively adding each item's representation to the HTML dynamically.
+
+The function also adds a class "rev_" to every other item (odd-indexed items) using article.classList.add('rev_')
+
+It then modifies the style of the <header> element, setting its height to '45vh'.
+
+The function clears the content of the element with ID "#header_content" and sets its height to 'max-content'.
+
+A new <div> element with class "title_category" is created, containing an <h2> element displaying the category name. This section seems to be intended for displaying the category title prominently.
+
+Finally, the element with ID "#products" is hidden by setting its hidden attribute to true.
 */
 
 function renderCategory(data) {
@@ -86,7 +110,7 @@ function renderCategory(data) {
   });
   items.forEach((item, index) => {
     const categories_items = document.querySelector('#render_js_content');
-    /* <div> with the ID "#render_js_content" where the categories and individual items will be dynamically added. */
+    /* <div> where the categories and individual items will be dynamically added. */
     const article = document.createElement('article');
     const categories_img = document.createElement('div');
     const img = document.createElement('img');
