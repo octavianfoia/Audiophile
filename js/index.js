@@ -1,9 +1,3 @@
-/* 
-The original mobile nav is initially hidden to the left side of the 
-screen with a left margin of -40vw.  
-
-*/
-
 const btn_hamb = document.getElementById('btn_hamb');
 btn_hamb.addEventListener('click', function (event) {
   event.preventDefault();
@@ -16,32 +10,6 @@ btn_hamb.addEventListener('click', function (event) {
     ul.style.marginLeft = '0vw';
   }
 });
-
-/*
-
-Function fetches JSON data from the "db.json" file. After the data is successfully retrieved, it conditionally calls `renderCategory` and `renderItem` functions based on the provided `category` and `item_` arguments, respectively.
-
-If any errors occur during the process, an error message is logged to the console.
-After retrieving the items, it executes .then(data => {});, and the if conditions are used to filter by category or individual item. 
-
-
-1. The function `getItems` takes two parameters: `category` and `item_`. These parameters are used to determine which parts of the fetched data should be rendered.
-
-2. The `fetch` function is used to make an HTTP request to the specified URL, "/data_base/db.json", to retrieve the JSON data from the server.
-
-3. The `fetch` function returns a Promise that resolves to the Response object. Methods are chained to this Promise using the `.then()` function.
-
-4. The first `.then()` callback is executed when the Promise is resolved. It takes the `response` object as an argument and calls the `.json()` method on it. This converts the response data into a JavaScript object.
-
-5. The second `.then()` callback is executed when the Promise from the previous `.then()` resolves. It takes the parsed JSON data as the `data` parameter. Inside this callback, there are conditional statements that check if `category` or `item_` are truthy values.
-
-6. If `category` is truthy, the `renderCategory` function is called with the `data` object as an argument.
-
-7. If `item_` is truthy, the `renderItem` function is called with the `data` object as an argument.
-
-8. If there is an error during the fetch operation or any of the `.then()` callbacks, the `.catch()` method is called. The error is passed as an argument to the callback function, and it logs an error message to the console using `console.error()`.
-
-*/
 
 function getItems(category, item_) {
   fetch('/data_base/db.json')
@@ -61,7 +29,10 @@ function getItems(category, item_) {
 
 /*
 
-Read the current URL of the browser and retrieve the parameters ?category or ?item; example: http://127.0.0.1:5501/?category=HEADPHONES &/or http://127.0.0.1:5501/?item=XX99%20Mark%20II" 
+Read the current URL of the browser and retrieve the parameters 
+-?category or ?item; example: http://127.0.0.1:5501/?
+category=HEADPHONES 
+&/or http://127.0.0.1:5501/?item=XX99%20Mark%20II" 
 
 */
 
@@ -74,35 +45,6 @@ if (category || item_) {
   /* If it detects a variable in the route, the `getItems()` function is activated*/
   getItems(category, item_);
 }
-
-/* 
-`renderCategory` displays the categories page. Is executed when the items are retrieved and it filters them based on the category value. Then, it dynamically adds the filtered items using the DOM (using `createElement` and `appendChild` to create HTML elements). 
-
-renderCategory(data), takes a data object as input
-
-
-For each item in the filtered items array, the function creates and configures HTML elements for display. These elements include:
-
-An <article> element to represent each item.
-A <div> with class "category_img" that contains an <img> element displaying the item's image.
-A <div> with class "category_content" that contains various details of the item, like the name, category, details, etc.
-A <span> element with class "overline" for displaying the "NEW PRODUCT" text if the item is new (based on the item.new property).
-Two <h2> elements for displaying the item's name and category.
-A <p> element for displaying the item's details.
-An <a> element with a link to the item's page using the item.name property.
-A <button> element for displaying "SEE PRODUCT" as the button text.
-The newly created HTML elements are appended to the container with the ID "#render_js_content", effectively adding each item's representation to the HTML dynamically.
-
-The function also adds a class "rev_" to every other item (odd-indexed items) using article.classList.add('rev_')
-
-It then modifies the style of the <header> element, setting its height to '45vh'.
-
-The function clears the content of the element with ID "#header_content" and sets its height to 'max-content'.
-
-A new <div> element with class "title_category" is created, containing an <h2> element displaying the category name. This section seems to be intended for displaying the category title prominently.
-
-Finally, the element with ID "#products" is hidden by setting its hidden attribute to true.
-*/
 
 function renderCategory(data) {
   var items = data.items.filter(function (item) {
@@ -165,16 +107,16 @@ function renderCategory(data) {
   document.querySelector('#products').hidden = true;
 }
 
-/* `renderItems` is responsible for the page that appears when selecting a specific item */
 function renderItem(data) {
+  /* filters the `data.items` array to find the item with the name `item_`. and stores the filtered item in the `items` variable. */
   var items = data.items.filter(function (item) {
     return item.name === item_;
   });
 
-  const render_js_content =
-    document.querySelector(
-      '#render_js_content'
-    ); /*`<div>` with the ID "#render_js_content" where the categories and individual items will be dynamically added. */
+  /*This element is where the individual item details will 
+  be dynamically added.. */
+  const render_js_content = document.querySelector('#render_js_content');
+
   const article = document.createElement('article');
   const category_img = document.createElement('div');
   const img = document.createElement('img');
@@ -192,6 +134,7 @@ function renderItem(data) {
   const a = document.createElement('a');
   const button = document.createElement('button');
 
+  /* elements are populated with data from the selected item, - image, name, category, details, price, features, and items in the box. */
   render_js_content.appendChild(article);
   article.appendChild(category_img);
   category_img.appendChild(img);
@@ -240,6 +183,7 @@ function renderItem(data) {
   btn_p.onclick = add;
   button.className = 'subtitle btn';
 
+  /* adjusts the appearance of the header to accommodate the details of the selected item.*/
   document.querySelector('header').style.height = '15vh';
   document.querySelector('header nav').style.borderBottom = '0';
   const header_content = document.querySelector('#header_content');
@@ -307,6 +251,7 @@ function renderItem(data) {
   img_3.src = items[0].img_3;
 
   /* recommend  items*/
+
   const recommend_container = document.createElement('div');
   const recommend_title = document.createElement('h3');
   const recommend_items = document.createElement('div');
@@ -343,7 +288,9 @@ function renderItem(data) {
     recommend_item_button.textContent = 'SEE PRODUCT';
     recommend_item_button.className = 'subtitle btn';
   });
-
+  /* hides the `#products` div on the webpage. 
+  display only the dynamically rendered content and 
+  hide the default content */
   document.querySelector('#products').hidden = true;
 
   function rem() {
@@ -395,11 +342,10 @@ function render_cart() {
   shop_span.textContent = 'Remove all';
   shop_span.onclick = delete_all_items_from_shopping_cart;
 
-  /* Calling the function that retrieves the items added to the shopping cart from the database. */
   get_shopping_cart_items()
     .then(responseData => {
       responseData.forEach(element => {
-        /* Render the necessary elements for each item. */
+        /* Render the necessary elements for each item - iterating through cart items. */
         const shop_article = document.createElement('article');
         shop_article.className = 'shop_article';
         const item_img = document.createElement('img');
@@ -490,7 +436,9 @@ function render_cart() {
 
 /* Calculate the new total price of the shopping cart. */
 function cart_total_price(data) {
+  /* selecting the container element that holds the shopping cart items */
   const shoppingContainer = document.querySelector('.shopping_content');
+
   const priceElements = shoppingContainer.querySelectorAll('.div_name_price p');
   const qty_input = shoppingContainer.querySelectorAll('.div_input input');
   let total = 0;
@@ -502,9 +450,12 @@ function cart_total_price(data) {
 
     total += price;
   });
+
+  /* updates the display of the cart footer with the new total value*/
   document.querySelector('.shop_footer h6').textContent = total
     .toLocaleString('es-US', { style: 'currency', currency: 'USD' })
     .replace('.00', '');
+  /* updates the cart header to show the current number of items in the cart */
   document.querySelector('.shop_header h6').textContent =
     'CART (' + priceElements.length + ')';
 }
@@ -517,6 +468,7 @@ CRUD - The fetch method defaults to GET (for retrieving data, USED when loading 
 */
 
 async function get_shopping_cart_items() {
+  /* fetches the CURRENT shopping cart items from the server */
   return fetch('http://localhost:3000/shopping_cart')
     .then(response => response.json())
     .then(data => {
@@ -568,10 +520,11 @@ function delete_item_from_shopping_cart(itemId) {
 }
 
 function delete_all_items_from_shopping_cart(var_) {
-  /* First it has to call the function that retrieves the items added to the shopping cart from the database. */
   get_shopping_cart_items()
     .then(responseData => {
-      /* json-server doesnt allow deleting all the items from the cart at once. so the function will search for the items in the cart and delete them one by one - foreach */
+      /* json-server doesnt allow deleting all the items from the 
+      cart at once. so the function will search for the items 
+      in the cart and delete them one by one - foreach */
       responseData.forEach(element => {
         fetch('http://localhost:3000/shopping_cart/' + element.id, {
           method: 'DELETE',
@@ -618,19 +571,24 @@ function update_item_in_shopping_cart(Data_, input_value) {
     });
 }
 
-/* Get the items that are in the shopping cart to display them in the checkout summary. */
+/* Get the items that are in the shopping cart 
+to display them in the checkout summary. */
 
 const checkout = urlParams.get('checkout');
 
 if (checkout) {
   document.querySelector('header').style.height = '15vh';
   document.querySelector('header nav').style.borderBottom = '0';
+  //hiding header and main content
   const header_content = document.querySelector('#header_content');
   header_content.innerHTML = '';
   header_content.style.height = '0';
 
+  //changing the display property
   document.querySelector('main').style.display = 'none';
   document.querySelector('#checkout').style.display = 'flex';
+
+  // contains the items in shopping cart
   const summary_content = document.querySelector('#summary');
 
   get_shopping_cart_items()
@@ -687,6 +645,9 @@ if (checkout) {
       shipping_div.appendChild(shipping_p);
       shipping_div.appendChild(shipping_h6);
       shipping_p.textContent = 'SHIPPING';
+      //n_shipping and n_vat are hard coded;
+      //could be fetched from the server based on product
+      //category, country of service etc
       var n_shipping = 50;
       shipping_h6.textContent = '$ ' + n_shipping;
       shop_footer.appendChild(vat_div);
